@@ -1,6 +1,6 @@
 <?php
 
-$_INSTALL['VERSION'] = 1.20;
+$_INSTALL['VERSION'] = 1.3;
 
 $_INSTALL['PUBLIC_CLONE_URL'] = 'git://github.com/diversen/rss.git';
 $_INSTALL['PRIVATE_CLONE_URL'] = 'git@github.com:diversen/rss.git';
