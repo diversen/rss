@@ -5,6 +5,7 @@
  *
  * @package    content
  */
+
 header("Content-Type: application/xml; utf-8");
 $rss = new rss();
 $feed = $rss->getFeed();
