@@ -27,7 +27,7 @@ class rss {
         if ($extra && $extra != 'feed.xml') $module.="/$extra";
         include_module($module);
 
-        $class = moduleLoader::modulePathToClassName($module);
+        $class = moduleloader::modulePathToClassName($module);
         $rows = $class::getRowsRSS();
 
         $str = '';
