@@ -25,7 +25,7 @@ class rss {
         
         // Ugly
         if ($extra && $extra != 'feed.xml') $module.="/$extra";
-        include_module($module);
+        moduleloader::includeModule($module);
 
         $class = moduleloader::modulePathToClassName($module);
         $rows = $class::getRowsRSS();
