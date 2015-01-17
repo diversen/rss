@@ -5,12 +5,13 @@
  */
 class rss {
     public static function getFeedLink($options){
-        $link = "<p>";
+
+        $link = '<div class="rss_module">';
         $link.= "<a href=\"http://$_SERVER[HTTP_HOST]";
         $link.= "/rss/feed/1/$options[reference]/feed.xml\" ";
         $link.= "rel= \"nofollow\" target = \"_blank\">\n";
         $link.= "<img src=\"/images/rss.gif\" alt=\"rss\" /></a>";
-        $link.= '</p>';
+        $link.= '</div>';
         return $link;
     }
 
