@@ -52,8 +52,8 @@ class rss {
         $details.= "<channel>\n";
         $details.= "<title>$_SERVER[HTTP_HOST]</title>\n";
         $details.= "<link>http://$_SERVER[HTTP_HOST]</link>\n";
-        $details.= "<description>" . config::$vars['coscms_main']['description'] . "</description>";
-        $details.= "<language>" . config::$vars['coscms_main']['lang'] . "</language>\n";
+        $details.= "<description>" . conf::$vars['coscms_main']['description'] . "</description>";
+        $details.= "<language>" . conf::$vars['coscms_main']['lang'] . "</language>\n";
         return $details;
     }
 
