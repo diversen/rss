@@ -1,5 +1,9 @@
 <?php
 
+use diversen\uri;
+use diversen\moduleloader;
+use diversen\conf;
+use diversen\html;
 /**
  * class for doing feeds
  */
