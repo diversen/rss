@@ -1,14 +1,26 @@
 <?php
 
-use diversen\uri;
-use diversen\moduleloader;
 use diversen\conf;
+use diversen\date;
 use diversen\html;
+use diversen\moduleloader;
+use diversen\uri;
+
 /**
  * class for doing feeds
  */
 class rss {
-    public static function getFeedLink($options){
+
+    public function feedAction() {
+
+        header("Content-Type: application/xml; utf-8");
+        $rss = new rss();
+        $feed = $rss->getFeed();
+        echo $feed;
+        die;
+    }
+
+    public static function getFeedLink($options) {
 
         $link = '<div class="rss_module">';
         $link.= "<a href=\"http://$_SERVER[HTTP_HOST]";
@@ -23,13 +35,14 @@ class rss {
      *
      * @return  string  feed string
      */
-    public function getFeed(){
+    public function getFeed() {
         $uri = uri::getInstance();
         $module = $uri->fragment(3);
         $extra = $uri->fragment(4);
-        
+
         // Ugly
-        if ($extra && $extra != 'feed.xml') $module.="/$extra";
+        if ($extra && $extra != 'feed.xml')
+            $module.="/$extra";
         moduleloader::includeModule($module);
 
         $class = moduleloader::modulePathToClassName($module);
@@ -42,7 +55,7 @@ class rss {
         return $str;
     }
 
-    public static function subModulePostContent ($options) {
+    public static function subModulePostContent($options) {
         return self::getFeedLink($options);
     }
 
@@ -50,7 +63,7 @@ class rss {
      *
      * @return string   details
      */
-    public static function getStart(){
+    public static function getStart() {
         $details = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
         $details.= "<rss version=\"2.0\">\n";
         $details.= "<channel>\n";
@@ -61,7 +74,7 @@ class rss {
         return $details;
     }
 
-    public static function getEnd (){
+    public static function getEnd() {
         $end = '';
         $end.= "</channel>\n";
         $end.= "</rss>\n";
@@ -72,9 +85,9 @@ class rss {
      *
      * @return  string  items in the feed
      */
-    public static function getItems($rows){
+    public static function getItems($rows) {
         $items = '';
-        foreach ($rows as $key => $val){
+        foreach ($rows as $key => $val) {
             $val = html::specialEncode($val);
             $items.= "<item>\n";
             $items.= "<title>$val[title]</title>\n";
@@ -86,7 +99,7 @@ class rss {
         return $items;
     }
 
-    public static function timestampToPubdate ($ts){
-        return date ('D, d M Y H:i:s O', strtotime ($ts));
+    public static function timestampToPubdate($ts) {
+        return date('D, d M Y H:i:s O', strtotime($ts));
     }
 }
