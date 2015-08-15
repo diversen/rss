@@ -56,6 +56,9 @@ class module {
     }
 
     public static function subModulePostContent($options) {
+        if (!isset($mode)) {
+            return;
+        }
         if ($options['mode'] == 'list') { 
             return self::getFeedLink($options);
         }
