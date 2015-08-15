@@ -1,5 +1,7 @@
 <?php
 
+namespace modules\rss;
+
 use diversen\conf;
 use diversen\date;
 use diversen\html;
@@ -9,12 +11,12 @@ use diversen\uri;
 /**
  * class for doing feeds
  */
-class rss {
+class module {
 
     public function feedAction() {
 
         header("Content-Type: application/xml; utf-8");
-        $rss = new rss();
+        $rss = new self();
         $feed = $rss->getFeed();
         echo $feed;
         die;
@@ -39,15 +41,13 @@ class rss {
         $uri = uri::getInstance();
         $module = $uri->fragment(3);
         $extra = $uri->fragment(4);
-
-        // Ugly
-        if ($extra && $extra != 'feed.xml')
-            $module.="/$extra";
+        
+        // get module specific RSS
         moduleloader::includeModule($module);
-
-        $class = moduleloader::modulePathToClassName($module);
+        $class = "modules\\" . moduleloader::modulePathToClassName($module) . "\\module";
         $rows = $class::getRowsRSS();
 
+        // compose RSS
         $str = '';
         $str.= $this->getStart();
         $str.= $this->getItems($rows);
@@ -56,7 +56,9 @@ class rss {
     }
 
     public static function subModulePostContent($options) {
-        return self::getFeedLink($options);
+        if ($options['mode'] == 'list') { 
+            return self::getFeedLink($options);
+        }
     }
 
     /**
