@@ -40,7 +40,6 @@ class module {
     public function getFeed() {
         $uri = uri::getInstance();
         $module = $uri->fragment(3);
-        $extra = $uri->fragment(4);
         
         // get module specific RSS
         moduleloader::includeModule($module);
@@ -56,7 +55,7 @@ class module {
     }
 
     public static function subModulePostContent($options) {
-        if (!isset($mode)) {
+        if (!isset($options['mode'])) {
             return;
         }
         if ($options['mode'] == 'list') { 
